@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">  
+  
+<generatorConfiguration>  
+  <classPathEntry location="E:\MyCMS\student\WebRoot\WEB-INF\lib\mysql-connector-java-5.1.25-bin.jar" />  
+  
+  <context id="Mysql2Tables" targetRuntime="MyBatis3">  
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"  
+        connectionURL="jdbc:mysql://127.0.0.1:3306/student"  
+        userId="zyx"  
+        password="07422801">  
+    </jdbcConnection>  
+  
+    <javaTypeResolver >  
+      <property name="forceBigDecimals" value="false" />  
+    </javaTypeResolver>  
+  
+    <javaModelGenerator targetPackage="com.java.mapper" targetProject="src">  
+      <property name="enableSubPackages" value="true" />  
+      <property name="trimStrings" value="true" />  
+    </javaModelGenerator>  
+  
+    <sqlMapGenerator targetPackage="com.java.mapper"  targetProject="src">  
+      <property name="enableSubPackages" value="true" />  
+    </sqlMapGenerator>  
+  
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.java.mapper"  targetProject="src">  
+      <property name="enableSubPackages" value="true" />  
+    </javaClientGenerator>  
+    <table schema="student" tableName="sys_user" domainObjectName="SysUser" enableCountByExample="false" enableUpdateByExample="false"  
+           enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+    </table>  
+    <table schema="student" tableName="sys_log" domainObjectName="SysLog" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>  
+   <table schema="student" tableName="sys_channel" domainObjectName="SysChannel" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="sys_privilege" domainObjectName="SysPrivilege" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="sys_user_group" domainObjectName="SysUserGroup" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="blog_article" domainObjectName="BlogArticle" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="blog_type" domainObjectName="BlogType" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="blog_friend" domainObjectName="BlogFriend" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="blog_message" domainObjectName="BlogMessage" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="blog_comment" domainObjectName="BlogComment" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+   <table schema="student" tableName="blog_photo" domainObjectName="BlogPhoto" enableCountByExample="false" enableUpdateByExample="false"  
+       enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">  
+   </table>
+  </context>  
+</generatorConfiguration>
