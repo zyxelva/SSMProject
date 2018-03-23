@@ -10,34 +10,34 @@
 		http://www.springframework.org/schema/tx
 		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
 
-
-	<!-- <context:component-scan base-package="com.zyx">
-		注意 Controller由Spring mvc扫描
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan> -->
-	<!-- 1. 数据源 : DriverManagerDataSource -->
+	<!-- 1. 数据源 : com.alibaba.druid.pool.DruidDataSource -->
 	<!-- 引入jdbc配置文件 -->
-	<context:property-placeholder location="classpath:resources/jdbc.properties" />
-
+	<context:property-placeholder location="classpath:resources/*.properties" />
 
 	<!-- 配置数据源 -->
-	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" 
-		init-method="init" destroy-method="close"> 不使用properties来配置 <property name="driverClassName" 
-		value="com.mysql.jdbc.Driver" /> <property name="url" value="jdbc:mysql://localhost:3306/learning" 
-		/> <property name="username" value="root" /> <property name="password" value="christmas258@" 
-		/> 使用properties来配置 <property name="driverClassName"> <value>${jdbc_driverClassName}</value> 
-		</property> <property name="url"> <value>${jdbc_url}</value> </property> 
-		<property name="username"> <value>${jdbc_username}</value> </property> <property 
-		name="password"> <value>${jdbc_password}</value> </property> </bean> -->
-
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 不使用properties来配置 -->
+		<!-- 
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://127.0.0.1:3306/student" />
 		<property name="username" value="zyx" />
-		<property name="password" value="07422801" />
+		<property name="password" value="07422801" /> 
+		-->
+		<!-- 使用properties来配置 -->
+		<property name="driverClassName">
+			<value>${jdbc_driverClassName}</value>
+		</property>
+		<property name="url">
+			<value>${jdbc_url}</value>
+		</property>
+		<property name="username">
+			<value>${jdbc_username}</value>
+		</property>
+		<property name="password">
+			<value>${jdbc_password}</value>
+		</property>
 	</bean>
+
 
 	<!-- 2. mybatis的SqlSession的工厂: SqlSessionFactoryBean dataSource:引用数据源 MyBatis定义数据源,同意加载配置 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -49,7 +49,17 @@
 		basePackage:指定sql映射文件/接口所在的包（自动扫描） -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.java.mapper"></property>
-		<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+		<!-- 防止出现无法解析类似${jdbc_driverClassName}的问题
+		原因是在spring里使用org.mybatis.spring.mapper.MapperScannerConfigurer 进行自动扫描的时候，
+		设置了sqlSessionFactory 的话，可能会导致PropertyPlaceholderConfigurer失效，
+		也就是用${jdbc.username}这样之类的表达式，将无法获取到properties文件里的内容。 
+		导致这一原因是因为，MapperScannerConigurer实际是在解析加载bean定义阶段的，
+		这个时候要是设置sqlSessionFactory的话，会导致提前初始化一些类，这个时候，
+		PropertyPlaceholderConfigurer还没来得及替换定义中的变量，导致把表达式当作字符串复制了。
+		 但如果不设置sqlSessionFactory 属性的话，就必须要保证sessionFactory在spring中名称一定要是sqlSessionFactory ，
+		 否则就无法自动注入。又或者直接定义 MapperFactoryBean ，再或者放弃自动代理接口方式。 -->
+		<!-- <property name="sqlSessionFactory" ref="sqlSessionFactory"></property> -->
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
 	</bean>
 
 	<!-- 4. 事务管理 : DataSourceTransactionManager dataSource:引用上面定义的数据源 -->
@@ -60,6 +70,6 @@
 
 	<!-- 5. 使用声明式事务 transaction-manager：引用上面定义的事务管理器 -->
 	<tx:annotation-driven transaction-manager="txManager" />
- 	<context:component-scan base-package="com.zyx.test.java.service" />
+	<context:component-scan base-package="com.zyx.test.java.service" />
 
 </beans>

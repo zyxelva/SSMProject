@@ -90,5 +90,7 @@
 	<classpathentry kind="lib" path="E:/MyCMS/SSMProject/WebRoot/WEB-INF/lib/wagon-ssh-external-1.0-beta-2.jar"/>
 	<classpathentry kind="lib" path="E:/MyCMS/SSMProject/WebRoot/WEB-INF/lib/xml-apis-1.4.01.jar"/>
 	<classpathentry kind="lib" path="E:/MyCMS/SSMProject/WebRoot/WEB-INF/lib/pagehelper-4.2.1.jar"/>
+	<classpathentry kind="lib" path="E:/MyCMS/SSMProject/WebRoot/WEB-INF/lib/druid-1.0.9.jar"/>
+	<classpathentry kind="lib" path="E:/MyCMS/SSMProject/WebRoot/WEB-INF/lib/jsqlparser-0.9.5.jar"/>
 	<classpathentry kind="output" path="WebRoot/WEB-INF/classes"/>
 </classpath>
